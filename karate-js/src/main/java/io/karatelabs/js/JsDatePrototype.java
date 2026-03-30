@@ -71,6 +71,14 @@ class JsDatePrototype extends Prototype {
             case "setSeconds" -> (JsCallable) this::setSeconds;
             case "setMilliseconds" -> (JsCallable) this::setMilliseconds;
             case "setTime" -> (JsCallable) this::setTime;
+            case "getUTCFullYear" -> (JsCallable) this::getUTCFullYear;
+            case "getUTCMonth" -> (JsCallable) this::getUTCMonth;
+            case "getUTCDate" -> (JsCallable) this::getUTCDate;
+            case "getUTCDay" -> (JsCallable) this::getUTCDay;
+            case "getUTCHours" -> (JsCallable) this::getUTCHours;
+            case "getUTCMinutes" -> (JsCallable) this::getUTCMinutes;
+            case "getUTCSeconds" -> (JsCallable) this::getUTCSeconds;
+            case "getUTCMilliseconds" -> (JsCallable) this::getUTCMilliseconds;
             default -> null;
         };
     }
@@ -279,6 +287,42 @@ class JsDatePrototype extends Prototype {
         JsDate jsDate = asDate(context);
         jsDate.setMillis(timestamp);
         return timestamp;
+    }
+
+    private static ZonedDateTime toUTC(JsDate date) {
+        return ZonedDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneOffset.UTC);
+    }
+
+    private Object getUTCFullYear(Context context, Object[] args) {
+        return toUTC(asDate(context)).getYear();
+    }
+
+    private Object getUTCMonth(Context context, Object[] args) {
+        return toUTC(asDate(context)).getMonthValue() - 1; // 0-indexed
+    }
+
+    private Object getUTCDate(Context context, Object[] args) {
+        return toUTC(asDate(context)).getDayOfMonth();
+    }
+
+    private Object getUTCDay(Context context, Object[] args) {
+        return toUTC(asDate(context)).getDayOfWeek().getValue() % 7; // Sun=0
+    }
+
+    private Object getUTCHours(Context context, Object[] args) {
+        return toUTC(asDate(context)).getHour();
+    }
+
+    private Object getUTCMinutes(Context context, Object[] args) {
+        return toUTC(asDate(context)).getMinute();
+    }
+
+    private Object getUTCSeconds(Context context, Object[] args) {
+        return toUTC(asDate(context)).getSecond();
+    }
+
+    private Object getUTCMilliseconds(Context context, Object[] args) {
+        return toUTC(asDate(context)).getNano() / 1_000_000;
     }
 
 }

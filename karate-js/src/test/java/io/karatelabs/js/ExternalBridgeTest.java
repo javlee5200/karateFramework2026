@@ -376,7 +376,7 @@ class ExternalBridgeTest extends EvalBase {
         // java.util.Date should be usable as JS Date
         engine.put("javaDate", new Date(millis));
         assertEquals(millis, engine.eval("javaDate.getTime()"));
-        assertEquals(2021, engine.eval("javaDate.getFullYear()"));
+        assertEquals(2021, engine.eval("javaDate.getUTCFullYear()"));
         assertEquals("object", engine.eval("typeof javaDate"));
     }
 
@@ -389,7 +389,7 @@ class ExternalBridgeTest extends EvalBase {
         // Instant should work as JS Date
         engine.put("instant", Instant.ofEpochMilli(millis));
         assertEquals(millis, engine.eval("instant.getTime()"));
-        assertEquals(2021, engine.eval("instant.getFullYear()"));
+        assertEquals(2021, engine.eval("instant.getUTCFullYear()"));
     }
 
     @Test
