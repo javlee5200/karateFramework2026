@@ -60,3 +60,9 @@ Karate v2 maintains backwards compatibility with 1.x features. If you're migrati
 Karate v2 is developed by [Karate Labs Inc.](https://www.karatelabs.io) with contributions from the community.
 
 We invite enterprise users of Karate to review, influence the direction, and contribute to this project.
+
+## Commands
+
+mvn test -pl karate-junit6 -Dtest=KarateJUnit6Test
+mvn test -pl karate-junit6 -Dtest=HelloKarateTest
+mvn test -pl karate-junit6 -Dtest=DummyJsonAuthTokenTest
